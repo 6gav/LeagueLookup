@@ -3,22 +3,48 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {
+    toLookup: null,
+
+  };
+
+
+
+  componentDidMount(){
+    this.callDefaultInfo()
+      .then(res => this.setState({ data: res.default }))
+      .catch(err => console.log(err));
+  }
+
+  callDefaultInfo = async() => {
+    const response = await fetch('/static_info');
+    const body = await response.json();
+
+    return body;
+  };
+
+  searchSummoner = async e => {
+    e.preventDefault();
+    const response = await fetch('/summoner_lookup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ post: this.state.toLookup}),
+    });
+    const body = await response.JSON();
+
+
+  };
+
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            {this.state.data}
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
