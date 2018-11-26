@@ -15,17 +15,8 @@ class App extends Component {
 
 
   componentDidMount(){
-    this.callDefaultInfo()
-      .then(res => this.setState({ data: res.default }))
-      .catch(err => console.log(err));
+
   }
-
-  callDefaultInfo = async() => {
-    const response = await fetch('/static_info');
-    const body = await response.json();
-
-    return body;
-  };
 
   searchSummoner = async e => {
     e.preventDefault();
@@ -59,14 +50,15 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <form onSubmit = {this.searchSummoner}>
-
+          <p>Enter a Summoner:</p>
           <input
             type = "text"
             onChange = {e => this.setState({ toLookup: e.target.value })}/>
-          <button type="submit">Search</button>
+            <p></p>
+          <button type="submit">{"\n"}Search</button>
           </form>
-          <p>{this.state.SummonerName}</p>
-          <p>{this.state.Level}</p>
+          <p>Name: {this.state.SummonerName}</p>
+          <p>Level: {this.state.Level}</p>
           <LiveGame isLiveGame = {this.state.isLiveGame}/>
         </header>
       </div>
@@ -76,8 +68,8 @@ class App extends Component {
 
 function LiveGame(props) {
   console.log(props.isLiveGame);
-  if(props.isLiveGame)
-    return <p>InGame: True</p>
+  if(props.isLiveGame != null)
+    return <p>InGame: {props.isLiveGame.toString()}</p>
     else {
       return <p></p>
     }
