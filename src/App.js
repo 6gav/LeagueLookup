@@ -30,10 +30,11 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ post: this.state.toLookup}),
+      body: JSON.stringify({ post: this.state.toLookup }),
     });
-    const body = await response.JSON();
+    const body = await response.json();
 
+    console.log(body);
 
   };
 
@@ -42,9 +43,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <form onSubmit = {this.searchSummoner}>
+
           <p>
             {this.state.data}
           </p>
+          <input
+            type = "text"
+            onChange = {e => this.setState({ toLookup: e.target.value })}/>
+          <button type="submit">Search</button>
+          </form>
         </header>
       </div>
     );
