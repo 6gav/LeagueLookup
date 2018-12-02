@@ -49,16 +49,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <form onSubmit = {this.searchSummoner}>
-          <p>Enter a Summoner:</p>
-          <input
-            type = "text"
-            onChange = {e => this.setState({ toLookup: e.target.value })}/>
-            <p></p>
-          <button type="submit">{"\n"}Search</button>
+          <form onSubmit = {this.searchSummoner} className = "Input-form">
+          <input type = "text" onChange = {e => this.setState({ toLookup: e.target.value })} placeholder="Search for a summoner..." className = "Input-field"/>
+          <button type="submit" className = "Input-submit"/>
           </form>
-          <p>Name: {this.state.SummonerName}</p>
-          <p>Level: {this.state.Level}</p>
           <LiveGame isLiveGame = {this.state.isLiveGame}/>
         </header>
       </div>
