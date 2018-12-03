@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Profile.css';
 
 class Profile extends Component {
   state = {
@@ -25,6 +26,7 @@ class Profile extends Component {
     const body = await response.json();
     if(!body.error)
     {
+      console.log('Received: ' + body.isLiveGame);
       this.setState({
         SummonerName: body.SummonerName,
         Level: body.Level,
@@ -32,7 +34,7 @@ class Profile extends Component {
       });
     }
     else {
-      console.log(body.error)
+      console.log(body.error);
     }
     console.log(this.state);
   }
@@ -40,10 +42,26 @@ class Profile extends Component {
 
   render() {
     return (
-      <div></div>
+      <div className = "Profile-page">
+        <header className = "Profile-header">
+          <div className = "Profile-info">
+          <p>Name: {this.state.SummonerName}</p>
+          <p>Level: {this.state.Level}</p>
+          <LiveGame isLiveGame ={this.state.isLiveGame}/>
+          </div>
+        </header>
+      </div>
     );
   }
 
+}
+
+function LiveGame(props){
+  if(props.isLiveGame != null)
+  return <p>InGame: {props.isLiveGame.toString()}</p>
+  else {
+    return <p>InGame: false</p>
+  }
 }
 
 export default Profile;
