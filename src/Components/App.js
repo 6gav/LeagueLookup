@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Redirect} from 'react-router-dom';
 
 
 
 class App extends Component {
   state = {
     toLookup: null,
-    SummonerName: null,
-    Level: null,
-    isLiveGame: null,
   };
-
 
 
   componentDidMount(){
@@ -19,27 +15,9 @@ class App extends Component {
   }
 
   searchSummoner = async e => {
+    window.location = './Search/na/summoner=' + this.state.toLookup;
     e.preventDefault();
-    console.log(this.state);
-    const response = await fetch('/summoner_lookup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ toLookup: this.state.toLookup }),
-    });
-    const body = await response.json();
-    if(!body.error)
-    {
-      this.setState({
-        SummonerName: body.SummonerName,
-        Level: body.Level,
-        isLiveGame: body.isLiveGame,
-      });
-    }
-    else {
-      console.log(body.error)
-    }
+
 
   };
 
@@ -49,7 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <form onSubmit = {this.searchSummoner} className = "Input-form">
+          <form onSubmit = { this.searchSummoner } className = "Input-form" >
           <input type = "text" onChange = {e => this.setState({ toLookup: e.target.value })} placeholder="Search for a summoner..." className = "Input-field"/>
           <button type="submit" className = "Input-submit"/>
           </form>
