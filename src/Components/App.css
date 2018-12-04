@@ -2,8 +2,19 @@
   text-align: center;
 }
 
+.App-background{
+  position: fixed;
+  min-height: 112vh;
+  min-width: 112vw;
+  top: -6vh;
+  left: -6vw;
+  background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vayne_11.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(0.2vh);
+}
+
 .App-header {
-  background-color: #DDDDFF;
   height: 100vh;
   font-size: 5vh;
   color: white;
