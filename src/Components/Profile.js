@@ -10,14 +10,15 @@ class Profile extends Component {
     Level: null,
     isLiveGame: null,
     IconId: null,
+    MostMastery: null,
   };
 
   componentDidMount(){
-    this.testFetch();
+    this.state.toLookup = this.props.match.params.name;
     console.log(this.props.match.params);
     this.state.IconId = 3232;
-    this.state.toLookup = this.props.match.params.name;
-    this.fetch();
+    this.testFetch();
+
   }
 
   async testFetch(){
@@ -35,10 +36,13 @@ class Profile extends Component {
       championList = data;
       console.log('Fetched: ');
       console.log(championList);
+      this.fetch();
     })
     .catch(e => {
       console.log(e);
     });
+
+
   }
 
   async fetch(){
@@ -58,22 +62,28 @@ class Profile extends Component {
         Level: body.Level,
         isLiveGame: body.isLiveGame,
         IconId: body.IconId,
+        MostMastery: body.MostMastery,
       });
     }
     else {
       console.log(body.error);
     }
     console.log(this.state);
-    ProfileImage(this.state.IconId);
+    ProfileUpdate({IconId: this.state.IconId, MostMastery: this.state.MostMastery});
+
   }
 
 
   render() {
     return (
+
       <div className = "Profile-page">
+      <div className = "Profile-background">
+      </div>
         <header className = "Profile-header">
           <div className = "Profile-info">
-          <img id="profile-icon"/>
+          <img className = "Profile-icon" id="profile-icon"/>
+          <img className = "Personal-background" id="profile-splash"/>
           <p>Name: {this.state.SummonerName}</p>
           <p>Level: {this.state.Level}</p>
           <LiveGame isLiveGame ={this.state.isLiveGame}/>
@@ -85,12 +95,16 @@ class Profile extends Component {
 
 }
 
-function ProfileImage(props){
+function ProfileUpdate(props){
   console.log("Entered image function, id is: " + props);
-  if(props)
+  if(props.IconId)
   {
-    var icon = document.getElementById('profile-icon').src = "http://ddragonexplorer.com/cdn/8.24.1/img/profileicon/" + props + ".png"
+    var icon = document.getElementById('profile-icon').src = "http://ddragonexplorer.com/cdn/8.24.1/img/profileicon/" + props.IconId + ".png"
     console.log(icon);
+  }
+  if(props.MostMastery){
+    var champ = championList.keys[props.MostMastery];
+    var icon = document.getElementById('profile-splash').src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg";
   }
 }
 
