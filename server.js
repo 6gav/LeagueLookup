@@ -10,9 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const apiKey = 'RGAPI-638f24e6-d6a2-4687-96fe-d8ec082e0517';
 
 var SummonerName;
+var SummonerId;
 var Level;
 var TotalMastery;
 var IconId;
+var ToLookup;
+var SoloRank;
+var FiveRank;
+var ThreeRank;
 var isLiveGame;
 
 
@@ -22,48 +27,92 @@ app.get('/static_info', (req, res) => {
 
 
 app.post('/summoner_lookup', (req, res) => {
-  console.log(req.body);
-  axios.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + req.body.toLookup + '?api_key=' + apiKey)
-  .then(resL => {
-    console.log(resL.data);
-    SummonerName = resL.data.name;
-    Level = resL.data.summonerLevel;
-    IconId = resL.data.profileIconId;
-    console.log("I got id: " + IconId);
-    axios.get('https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/' + resL.data.id + '?api_key=' + apiKey)
-    .then(masteryResult => {
-      console.log(masteryResult.data[0].championId);
-      MostMastery = masteryResult.data[0].championId;
+  ToLookup = req.body.toLookup;
 
-      axios.get('https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/' + resL.data.id + '?api_key=' + apiKey)
-      .then(liveResult => {
-        console.log(liveResult.data);
-        isLiveGame = true;
-          sendData(res);
-      })
-      .catch(e => {
-        console.log(e.response.status);
-          isLiveGame = false;
-          sendData(res);
-        console.log(`isLiveGame: ${isLiveGame}`);
-      })
-  })
-  })
-  .catch(e =>
-  {
-    console.log(e.response.statusText);
-    res.send({error: e.response.statusText});
-  });
+  getSummoner(res);
 });
 
- function sendData(props){
+
+function getSummoner(props){
+  axios.get('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + ToLookup + '?api_key=' + apiKey)
+  .then(sumRes => {
+    console.log('Summoner: ');
+    console.log(sumRes.data);
+    SummonerName = sumRes.data.name;
+    Level = sumRes.data.summonerLevel;
+    IconId = sumRes.data.profileIconId;
+    SummonerId = sumRes.data.id;
+    getMastery(props);
+  });
+
+}
+
+function getMastery(props){
+  axios.get('https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/' + SummonerId + '?api_key=' + apiKey)
+  .then(res => {
+    console.log('Mastery:');
+    console.log(res.data[0]);
+    MostMastery = res.data[0].championId;
+
+    getRank(props);
+  })
+
+}
+
+function getRank(props){
+  axios.get(' https://na1.api.riotgames.com/lol/league/v4/positions/by-summoner/' + SummonerId + '?api_key=' + apiKey)
+  .then(res =>{
+    if(res.data.length > 0)
+    {
+      for(var i = 0; i < res.data.length; i++){
+        var temp = res.data[i].tier + " " + res.data[i].rank;
+        console.log(temp);
+        switch (res.data[i].queueType){
+          case "RANKED_SOLO_5x5":
+            SoloRank = temp;
+          break;
+          case "RANKED_TEAM_5x5":
+            FiveRank = temp;
+          break;
+          case "RANKED_TEAM_5x5":
+            ThreeRank = temp;
+          break;
+        }
+      }
+    }
+    getLiveGame(props);
+  })
+
+
+}
+
+function getLiveGame(props){
+  axios.get('https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' + SummonerId + '?api_key=' + apiKey)
+  .then(res =>{
+    isLiveGame = true;
+  })
+  .catch(e =>{
+      isLiveGame = false;
+  })
+  .then(end =>{
+    sendData(props);
+  })
+
+}
+
+function sendData(props){
   props.send({
     SummonerName: SummonerName,
     Level: Level,
     IconId: IconId,
     isLiveGame: isLiveGame,
     MostMastery: MostMastery,
+    SoloRank: SoloRank,
+    FiveRank: FiveRank,
+    ThreeRank: ThreeRank,
   });
 }
+
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

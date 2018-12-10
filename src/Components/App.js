@@ -20,8 +20,8 @@ class App extends Component {
 
   onMouseMove(e){
 
-    var x = e.clientX * 30 / window.innerWidth + 10 + "%";
-    var y = e.clientY * 30 / window.innerHeight + "%";
+    var x = e.clientX * 15 / window.innerWidth + 10 + "%";
+    var y = e.clientY * 15 / window.innerHeight + "%";
     photo.style.left = x;
     photo.style.top = y;
     photo.style.transform = "translate(-"+x+",-"+y+")";

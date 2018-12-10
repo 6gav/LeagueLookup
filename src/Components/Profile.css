@@ -27,21 +27,21 @@
   margin-bottom: 0;
   min-width: 80vw;
   background-color: #CCCCFF;
-  border-top-left-radius: 75px;
-  border-top-right-radius: 75px;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
 
 }
 
 .Profile-icon{
   z-index: 5;
-  border-radius: 100%;
+  border-radius: 10em;
   border-style: double;
   border-color: #339933;
-  border-width: 5px;
-  min-width: calc(10vw + 20vh);
-  max-width: calc(10vw + 20vh);
-  min-height: calc(10vw + 20vh);
-  max-height: calc(10vw + 20vh);
+  border-width: 0.2em;
+  min-width: 7em;
+  max-width: 7em;
+  min-height: 7em;
+  max-height: 7em;
 }
 
 .Personal-background{
@@ -52,11 +52,38 @@
   margin-right: 12vh;
   padding: 0;
   z-index: -1;
-  width: 85.75vw;
+  width: 0;
   border: 0;
   object-fit: cover;
   border-top-left-radius: 75px;
   border-top-right-radius: 75px;
+}
+
+#playerName{
+  position: relative;
+  top: -13%;
+}
+
+#playerLevel{
+  font-size: 0.7em;
+  position: relative;
+  top: -9%;
+
+}
+
+.Profile-Rank{
+  position: relative;
+  top: 0%;
+  left: 5%;
+
+  background-color: #bebebe;
+  margin-top: 2.2em;
+  height: 5em;
+  width: 7em;
+}
+
+#playerRank{
+
 }
 
 .Profile-background{

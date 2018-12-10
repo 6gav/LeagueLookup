@@ -11,6 +11,9 @@ class Profile extends Component {
     isLiveGame: null,
     IconId: null,
     MostMastery: null,
+    SoloRank: null,
+    FiveRank: null,
+    ThreeRank: null,
   };
 
   componentDidMount(){
@@ -28,7 +31,7 @@ class Profile extends Component {
 
     var proxy = 'https://cors-anywhere.herokuapp.com/',
         target = 'http://ddragonexplorer.com/cdn/8.24.1/data/en_US/championFull.json';
-      fetch(proxy + target, {
+      fetch(target, {
         headers: myHeaders,
     })
     .then(response => response.json())
@@ -56,20 +59,24 @@ class Profile extends Component {
     const body = await response.json();
     if(!body.error)
     {
-      console.log('Received: ' + body.IconId);
+      console.log('Received: ' + body.SoloRank);
       this.setState({
         SummonerName: body.SummonerName,
         Level: body.Level,
         isLiveGame: body.isLiveGame,
         IconId: body.IconId,
         MostMastery: body.MostMastery,
+        SoloRank: body.SoloRank,
+        ThreeRank: body.ThreeRank,
+        FiveRank: body.FiveRank,
       });
     }
     else {
       console.log(body.error);
     }
     console.log(this.state);
-    ProfileUpdate({IconId: this.state.IconId, MostMastery: this.state.MostMastery});
+    var temp = this.state.SoloRank.split(' ')[0].toLowerCase();
+    ProfileUpdate({IconId: this.state.IconId, MostMastery: this.state.MostMastery, SoloRank: temp});
 
   }
 
@@ -82,11 +89,16 @@ class Profile extends Component {
       </div>
         <header className = "Profile-header">
           <div className = "Profile-info">
-          <img className = "Profile-icon" id="profile-icon"/>
           <img className = "Personal-background" id="profile-splash"/>
-          <p>Name: {this.state.SummonerName}</p>
-          <p>Level: {this.state.Level}</p>
-          <LiveGame isLiveGame ={this.state.isLiveGame}/>
+          <div className = "Profile-Heading">
+          <img className = "Profile-icon" id="profile-icon"/>
+          <p id = "playerLevel">{this.state.Level}</p>
+          <p id = "playerName">{this.state.SummonerName}</p>
+          </div>
+          <div className = "Profile-Rank">
+          <img className = "Profile-rank-icon" id="profile-rank"/>
+          <p id = "playerRank">{this.state.SoloRank}</p>
+          </div>
           </div>
         </header>
       </div>
@@ -105,6 +117,9 @@ function ProfileUpdate(props){
   if(props.MostMastery){
     var champ = championList.keys[props.MostMastery];
     var icon = document.getElementById('profile-splash').src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg";
+  }
+  if(props.SoloRank){
+    document.getElementById('profile-rank').src = "" + props.SoloRank + ".png";
   }
 }
 
