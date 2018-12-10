@@ -75,7 +75,7 @@
   position: relative;
   top: 0%;
   left: 5%;
-
+  display: flex;
   background-color: #bebebe;
   margin-top: 2.2em;
   height: 5em;
@@ -83,7 +83,14 @@
 }
 
 #playerRank{
+  line-height: .1;
+}
 
+#profile-rank{
+  width: 5vw;
+  height: 5vw;
+  line-height: .1;
+  padding: 0;
 }
 
 .Profile-background{

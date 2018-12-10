@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
 import './Profile.css';
+import Iron from '../iron.png';
+import Bronze from '../bronze.png';
+import Silver from '../silver.png';
+import Gold from '../gold.png';
+import Platinum from '../platinum.png';
+import Diamond from '../diamond.png';
+import Master from '../master.png';
+import Grandmaster from '../grandmaster.png';
 
 var championList;
 
@@ -14,6 +22,7 @@ class Profile extends Component {
     SoloRank: null,
     FiveRank: null,
     ThreeRank: null,
+    SoloLp: null,
   };
 
   componentDidMount(){
@@ -49,6 +58,7 @@ class Profile extends Component {
   }
 
   async fetch(){
+    console.log('Start of fetch');
     const response = await fetch('/summoner_lookup', {
       method: 'POST',
       headers: {
@@ -98,6 +108,7 @@ class Profile extends Component {
           <div className = "Profile-Rank">
           <img className = "Profile-rank-icon" id="profile-rank"/>
           <p id = "playerRank">{this.state.SoloRank}</p>
+          <p id = "playerLp">{this.state.SoloLp}</p>
           </div>
           </div>
         </header>
@@ -119,7 +130,36 @@ function ProfileUpdate(props){
     var icon = document.getElementById('profile-splash').src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg";
   }
   if(props.SoloRank){
-    document.getElementById('profile-rank').src = "" + props.SoloRank + ".png";
+    var TempImage;
+    switch(props.SoloRank){
+      case 'iron':
+        TempImage = Iron;
+      break;
+      case 'bronze':
+        TempImage = Bronze;
+      break;
+      case 'silver':
+        TempImage = Silver;
+      break;
+      case 'gold':
+        TempImage = Gold;
+      break;
+      case 'platinum':
+        TempImage = Platinum;
+      break;
+      case 'diamond':
+        TempImage = Diamond;
+      break;
+      case 'master':
+        TempImage = Master;
+      break;
+      case 'grandmaster':
+        TempImage = Grandmaster;
+      break;
+
+    }
+
+    document.getElementById('profile-rank').src = TempImage;
   }
 }
 
