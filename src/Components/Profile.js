@@ -98,8 +98,8 @@ class Profile extends Component {
       <div className = "Profile-background">
       </div>
         <header className = "Profile-header">
-          <div className = "Profile-info">
-          <img className = "Personal-background" id="profile-splash"/>
+          <div className = "Profile-info" id="profile-splash">
+          <img className = "Personal-background"/>
           <div className = "Profile-Heading">
           <img className = "Profile-icon" id="profile-icon"/>
           <p id = "playerLevel">{this.state.Level}</p>
@@ -127,7 +127,7 @@ function ProfileUpdate(props){
   }
   if(props.MostMastery){
     var champ = championList.keys[props.MostMastery];
-    var icon = document.getElementById('profile-splash').src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg";
+    var icon = document.getElementById('profile-splash').style.backgroundImage = "url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg')";
   }
   if(props.SoloRank){
     var TempImage;

@@ -20,11 +20,17 @@ var FiveRank;
 var ThreeRank;
 var isLiveGame;
 
+var MasterySummonerId;
+var MasteryChampion;
+
 
 app.get('/static_info', (req, res) => {
   res.send({default: 'Test',})
 });
 
+app.post('/mastery_lookup', (req, res) => {
+
+})
 
 app.post('/summoner_lookup', (req, res) => {
   ToLookup = req.body.toLookup;

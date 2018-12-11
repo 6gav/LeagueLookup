@@ -26,6 +26,8 @@
   margin-top: 20vh;
   margin-bottom: 0;
   min-width: 80vw;
+  background-repeat: no-repeat;
+  background-size: contain;
   background-color: #CCCCFF;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
@@ -44,20 +46,7 @@
   max-height: 7em;
 }
 
-.Personal-background{
-  position: absolute;
-  top: 20vh;
-  left: 0;
-  margin-left: 12vh;
-  margin-right: 12vh;
-  padding: 0;
-  z-index: -1;
-  width: 0;
-  border: 0;
-  object-fit: cover;
-  border-top-left-radius: 75px;
-  border-top-right-radius: 75px;
-}
+
 
 #playerName{
   position: relative;
@@ -76,7 +65,7 @@
   top: 0%;
   left: 5%;
   display: flex;
-  background-color: #bebebe;
+  background-color: rgba(10, 10, 10, 0.7);
   margin-top: 2.2em;
   height: 5em;
   width: 7em;
