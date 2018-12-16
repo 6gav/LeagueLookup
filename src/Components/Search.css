@@ -1,0 +1,75 @@
+.Search {
+  text-align: center;
+}
+
+.Search-background{
+  position: fixed;
+  min-height: 112vh;
+  min-width: 112vw;
+  top: -6vh;
+  left: -6vw;
+  background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vayne_11.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(calc(0.2vh + 0.1vw));
+}
+
+.App-header {
+  height: 100vh;
+  font-size: 5vh;
+  color: white;
+  margin-top: 0;
+}
+
+.Input-form {
+  position: relative;
+  top: calc(50% - 4vh);
+  left: calc(50% - 25vw);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 50vw;
+  max-width: 50vw;
+  height: 8vh;
+  max-height: 8vh;
+  box-shadow: 0px 0px 50px rgba(45, 45, 45, 0.8);
+  border-radius: 1vh;
+}
+
+.Input-field{
+  border-top-left-radius: 1vh;
+  border-bottom-left-radius: 1vh;
+  line-height: 10vh;
+  font-size: 3vh;
+  flex: 10;
+  height: inherit;
+  padding: 0;
+  padding-left: 1vw;
+  border: 0;
+  min-width: 40vw;
+  width: 40vw;
+}
+
+.Input-submit{
+  border-top-right-radius: 1vh;
+  border-bottom-right-radius: 1vh;
+  flex: 2;
+  min-width: 8vh;
+  width: 8vh;
+  max-width: 8vh;
+  height: inherit;
+  float: right;
+  background-color: #5555CC;
+  background-image: url("Search.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  line-height: 10vh;
+  font-size: 3vh;
+  padding: 0;
+  border: 0;
+}
+
+.App-link {
+  color: #61dafb;
+}

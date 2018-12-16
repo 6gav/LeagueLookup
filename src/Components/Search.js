@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Search.css';
 
 var photo;
 
@@ -10,7 +10,7 @@ class App extends Component {
 
   componentDidMount(){
 
-    photo = document.querySelector('.App-background');
+    photo = document.querySelector('.Search-background');
   }
 
   searchSummoner = async e => {
@@ -30,8 +30,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" onMouseMove={this.onMouseMove.bind(this)}>
-      <div className="App-background">
+      <div className="Search" onMouseMove={this.onMouseMove.bind(this)}>
+      <div className="Search-background">
       </div>
         <header className="App-header">
           <form onSubmit = { this.searchSummoner } className = "Input-form" >
