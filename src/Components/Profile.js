@@ -17,6 +17,7 @@ class Profile extends Component {
     SummonerName: null,
     Level: null,
     isLiveGame: null,
+    LiveGame: null,
     IconId: null,
     MostMastery: null,
     SoloRank: null,
@@ -26,9 +27,8 @@ class Profile extends Component {
   };
 
   componentDidMount(){
-    this.state.toLookup = this.props.match.params.name;
+    this.setState({ toLookup: this.props.match.params.name, IconId : 3232, LiveGame: null,});
     console.log(this.props.match.params);
-    this.state.IconId = 3232;
     this.testFetch();
 
   }
@@ -38,8 +38,7 @@ class Profile extends Component {
     myHeaders.append('Content-Type', 'text/json');
     myHeaders.append('Access-Control-Allow-Origin', '*');
 
-    var proxy = 'https://cors-anywhere.herokuapp.com/',
-        target = 'http://ddragonexplorer.com/cdn/8.24.1/data/en_US/championFull.json';
+    var target = 'http://ddragonexplorer.com/cdn/8.24.1/data/en_US/championFull.json';
       fetch(target, {
         headers: myHeaders,
     })
@@ -69,11 +68,11 @@ class Profile extends Component {
     const body = await response.json();
     if(!body.error)
     {
-      console.log('Received: ' + body.SoloRank);
       this.setState({
         SummonerName: body.SummonerName,
         Level: body.Level,
         isLiveGame: body.isLiveGame,
+        Livegame: body.LiveGame,
         IconId: body.IconId,
         MostMastery: body.MostMastery,
         SoloRank: body.SoloRank,
@@ -84,7 +83,15 @@ class Profile extends Component {
     else {
       console.log(body.error);
     }
-    console.log(this.state);
+    console.log(body);
+    if(this.state.isLiveGame){
+    for(var i = 0; i < body.LiveGame.participants.length; i++){
+      console.log(body.LiveGame.participants[i]);
+      console.log(championList.keys[body.LiveGame.participants[i].championId]);
+    }
+    this.setState({LiveGame: body.LiveGame});
+  }
+
     var temp = this.state.SoloRank.split(' ')[0].toLowerCase();
     ProfileUpdate({IconId: this.state.IconId, MostMastery: this.state.MostMastery, SoloRank: temp});
 
@@ -95,22 +102,26 @@ class Profile extends Component {
     return (
 
       <div className = "Profile-page">
-      <div className = "Profile-background">
-      </div>
-        <header className = "Profile-header">
-          <div className = "Profile-info" id="profile-splash">
-          <img className = "Personal-background"/>
-          <div className = "Profile-Heading">
-          <img className = "Profile-icon" id="profile-icon"/>
-          <p id = "playerLevel">{this.state.Level}</p>
-          <p id = "playerName">{this.state.SummonerName}</p>
-          </div>
-          <div className = "Profile-Rank">
-          <img className = "Profile-rank-icon" id="profile-rank"/>
-          <p id = "playerRank">{this.state.SoloRank}</p>
-          <p id = "playerLp">{this.state.SoloLp}</p>
-          </div>
-          </div>
+        <div className = "Profile-background">
+        </div>
+          <header className = "Profile-header">
+            <div className = "Profile-info" id="profile-splash">
+              <div className = "Profile-Heading">
+                <img className = "Profile-icon" id="profile-icon" alt="Profile_Icon"/>
+                <p id = "playerLevel">{this.state.Level}</p>
+                <p id = "playerName">{this.state.SummonerName}</p>
+              </div>
+              <div className = "Profile-Rank">
+                <img className = "Profile-rank-icon" id="profile-rank" alt="Profile_Rank"/>
+                <p id = "playerRank">{this.state.SoloRank}</p>
+                <p id = "playerLp">{this.state.SoloLp}</p>
+              </div>
+            </div>
+            <div className = "Matches">
+              <div>
+                <FillLiveGame LiveGame = {this.state.LiveGame}/>
+              </div>
+            </div>
         </header>
       </div>
     );
@@ -122,12 +133,15 @@ function ProfileUpdate(props){
   console.log("Entered image function, id is: " + props);
   if(props.IconId)
   {
-    var icon = document.getElementById('profile-icon').src = "http://ddragonexplorer.com/cdn/8.24.1/img/profileicon/" + props.IconId + ".png"
+    var icon = document.getElementById('profile-icon');
+    icon.src = "http://ddragonexplorer.com/cdn/8.24.1/img/profileicon/" + props.IconId + ".png";
+    icon.style.borderWidth = '0.2em';
+    icon.style.fontSize = '100%';
     console.log(icon);
   }
   if(props.MostMastery){
     var champ = championList.keys[props.MostMastery];
-    var icon = document.getElementById('profile-splash').style.backgroundImage = "url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg')";
+    document.getElementById('profile-splash').style.backgroundImage = "url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + champ + "_0.jpg')";
   }
   if(props.SoloRank){
     var TempImage;
@@ -156,7 +170,9 @@ function ProfileUpdate(props){
       case 'grandmaster':
         TempImage = Grandmaster;
       break;
-
+      default:
+        TempImage = Iron;
+      break;
     }
 
     document.getElementById('profile-rank').src = TempImage;
@@ -168,6 +184,26 @@ function LiveGame(props){
   return <p>InGame: {props.isLiveGame.toString()}</p>
   else {
     return <p>InGame: false</p>
+  }
+}
+
+function FillLiveGame(props){
+
+  console.log(props);
+  if(props.LiveGame)
+  {
+    var elements = [];
+    for(var i = 0; i < props.LiveGame.participants.length; i++)
+    {
+      elements.push(<p key={i}>{props.LiveGame.participants[i].summonerName}</p>);
+    }
+    return elements;
+  }
+  else {
+
+    return(
+      <p>Not ingame.</p>
+    );
   }
 }
 

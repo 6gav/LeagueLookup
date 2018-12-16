@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import App from './Components/App.js';
+import Search from './Components/Search.js';
 import Profile from './Components/Profile.js';
 import NavBar from './Components/NavBar.js';
+import MasteryLookup from './Components/MasteryLookup.js';
 import Mastery from './Components/Mastery.js';
 
 class Home extends Component {
@@ -14,8 +15,9 @@ class Home extends Component {
       <div>
         <NavBar/>
         <Switch>
-          <Route path = "/" exact component={App}/>
+          <Route path = "/" exact component={Search}/>
           <Route path = "/Search/:id/summoner=:name" component = {Profile}/>
+          <Route path = "/Mastery" component = {MasteryLookup}/>
           <Route path = "/Mastery/:id/summoner=:name/champion=:champion" component = {Mastery}/>
         </Switch>
       </div>

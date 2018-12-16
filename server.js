@@ -19,7 +19,7 @@ var SoloRank;
 var FiveRank;
 var ThreeRank;
 var isLiveGame;
-
+var LiveGame;
 var MasterySummonerId;
 var MasteryChampion;
 
@@ -96,9 +96,13 @@ function getLiveGame(props){
   axios.get('https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' + SummonerId + '?api_key=' + apiKey)
   .then(res =>{
     isLiveGame = true;
+    console.log('Live: ');
+    LiveGame = res.data;
+    console.log(LiveGame);
   })
   .catch(e =>{
       isLiveGame = false;
+      LiveGame = null;
   })
   .then(end =>{
     sendData(props);
@@ -112,6 +116,7 @@ function sendData(props){
     Level: Level,
     IconId: IconId,
     isLiveGame: isLiveGame,
+    LiveGame: LiveGame,
     MostMastery: MostMastery,
     SoloRank: SoloRank,
     FiveRank: FiveRank,
