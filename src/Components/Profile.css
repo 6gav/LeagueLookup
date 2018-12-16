@@ -69,10 +69,12 @@
   top: 0%;
   left: 5%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: rgba(10, 10, 10, 0.7);
   margin-top: 2.2em;
   height: 5em;
-  width: 7em;
+  width: 9em;
 }
 
 #playerRank{
@@ -94,9 +96,49 @@
   height: 100vh;
 }
 
+.Matches-card-holder{
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+
+}
+
+.Padding-box{
+  margin: -5em;
+}
+
+.Matches-card{
+  line-height: 0;
+  text-shadow:
+  -.03em -.03em 0 #000,
+  .03em -.03em 0 #000,
+  -.03em .03em 0 #000,
+  .03em .03em 0 #000;
+  outline: black;
+  outline-width: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(10, 10, 10, 0.4);
+  background-size: cover;
+  width: 50vw;
+  height: 30vh;
+}
+
+.Matches-card-profile{
+  position: relative;
+  top: calc(15vh - 2.3em);
+  left: calc(-28vw - 1.5em);
+  width: 5em;
+  height: 5em;
+  border-radius: 10em;
+  border-style: double;
+  border-width: 0;
+}
+
 .Matches{
-  min-height: 100vh;
-  height: 200vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 76vw;
   margin-left: auto;
   margin-right: auto;
