@@ -1,0 +1,10 @@
+.App-background{
+
+}
+
+.Mastery-lookup {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  margin: auto;
+}
