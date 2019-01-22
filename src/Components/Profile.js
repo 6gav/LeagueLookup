@@ -195,7 +195,24 @@ function FillLiveGame(props){
     var elements = [];
     for(var i = 0; i < props.LiveGame.participants.length; i++)
     {
-      elements.push(<p key={i}>{props.LiveGame.participants[i].summonerName}</p>);
+      var tempStyle={
+        backgroundImage: "url(https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + championList.keys[props.LiveGame.participants[i].championId] + "_0.jpg)",
+      }
+
+      var iconString =  "http://ddragonexplorer.com/cdn/8.24.1/img/profileicon/" + props.LiveGame.participants[i].profileIconId + ".png";
+      console.log(props.LiveGame.participants[i].profileIconId);
+      elements.push(
+        <div className = "Matches-card-holder">
+        <img className = "Matches-card-profile" src= {iconString}/>
+        <div className = "Padding-box">
+
+        </div>
+          <div  key={i} className = "Matches-card" style={tempStyle}>
+            <p>{props.LiveGame.participants[i].summonerName}</p>
+            <p>Champion: {championList.keys[props.LiveGame.participants[i].championId]}</p>
+          </div>
+        </div>
+      );
     }
     return elements;
   }
