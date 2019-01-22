@@ -1,6 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+# Building
+## Install
+After pulling repo, run `npm install` in the root folder
+This will install all of the node modules required to run
+
+## Starting
+### Server
+After `npm install` has finished, the backend can be started by running `node server.js`
+### Interface
+The frontend can be started by running `npm start`
+
 
 ## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
