@@ -1,3 +1,13 @@
+# Preview
+### Main Screen
+![Search Screenshot](https://i.imgur.com/lPHLWoX.png)
+
+### Profile Screen
+![Profile Screenshot](https://imgur.com/AnKmDeC.png)
+
+### In-Game Example
+![In-Game Screenshot](https://imgur.com/ovlGnso.png)
+
 # Info
 ## Technology
 This project was made with an express node.js backend server that completes requests to the RiotGames League of Legends API to display information about a player's account. The frontend of the project was made using ReactDOM with React-Router enabled.
