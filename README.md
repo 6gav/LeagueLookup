@@ -1,6 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Preview
+### Main Screen
+![Search Screenshot](https://i.imgur.com/lPHLWoX.png)
+
+### Profile Screen
+![Profile Screenshot](https://imgur.com/AnKmDeC.png)
+
+### In-Game Example
+![In-Game Screenshot](https://imgur.com/ovlGnso.png)
+
+# Info
+## Technology
+This project was made with an express node.js backend server that completes requests to the RiotGames League of Legends API to display information about a player's account. The frontend of the project was made using ReactDOM with React-Router enabled.
+
+## API Key
+This project requires that the `API_KEY.txt` has a RiotGames API Key inside of it, this can be grabbed at https://developer.riotgames.com/ 
+
+
+# Building
+## Install
+After pulling repo, run `npm install` in the root folder
+This will install all of the node modules required to run
+
+## Starting
+### Server
+After `npm install` has finished, the backend can be started by running `node server.js`
+### Interface
+The frontend can be started by running `npm start`
+
 
 ## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
