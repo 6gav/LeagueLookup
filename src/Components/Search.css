@@ -11,7 +11,7 @@
   background-image: url('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vayne_11.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  filter: blur(calc(0.2vh + 0.1vw));
+  filter: blur(calc(0.1vh + 0.1vw));
 }
 
 .App-header {
@@ -57,6 +57,7 @@
   min-width: 8vh;
   width: 8vh;
   max-width: 8vh;
+  min-height: 8vh;
   height: inherit;
   float: right;
   background-color: #5555CC;
@@ -66,8 +67,26 @@
   background-position: center;
   line-height: 10vh;
   font-size: 3vh;
+  margin: 0;
   padding: 0;
   border: 0;
+}
+
+.Input-champion {
+  position: relative;
+  height: inherit;
+  flex: 2;
+  border: 0;
+  border-left-width: .01em;
+  border-left-color: black;
+  border-left-style: inset;
+  min-width: 10vh;
+  width: 10vh;
+  line-height: 0;
+  margin: 0;
+  max-width: 10vh;
+  font-size: 1.2vh;
+  text-align: center;
 }
 
 .App-link {

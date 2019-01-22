@@ -20,8 +20,9 @@ var FiveRank;
 var ThreeRank;
 var isLiveGame;
 var LiveGame;
-var MasterySummonerId;
+var MasteryAmount;
 var MasteryChampion;
+
 
 
 app.get('/static_info', (req, res) => {
@@ -29,8 +30,11 @@ app.get('/static_info', (req, res) => {
 });
 
 app.post('/mastery_lookup', (req, res) => {
+  ToLookup = req.body.toLookup;
+  MasteryChampion = req.body.champion;
 
-})
+  getChampionMastery(res);
+});
 
 app.post('/summoner_lookup', (req, res) => {
   ToLookup = req.body.toLookup;
@@ -38,6 +42,25 @@ app.post('/summoner_lookup', (req, res) => {
   getSummoner(res);
 });
 
+
+function getChampionMastery(props){
+  axios.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + ToLookup + '?api_key=' + apiKey)
+  .then(sumRes => {
+      console.log('Summoner: ');
+      console.log(sumRes.data);
+      SummonerId = sumRes.data.id;
+      axios.get('https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/' + sumRes.data.id + '/by-champion/' + MasteryChampion + '?api_key=' + apiKey)
+      .then(masteryRes => {
+        MasteryAmount = masteryRes.data.championPoints;
+        props.send({
+          MasteryAmount: MasteryAmount,
+        });
+      })
+      .catch(e => {
+          console.log(e);
+        });
+  });
+}
 
 function getSummoner(props){
   axios.get('https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/' + ToLookup + '?api_key=' + apiKey)
@@ -62,6 +85,7 @@ function getMastery(props){
 
     getRank(props);
   })
+
 
 }
 
