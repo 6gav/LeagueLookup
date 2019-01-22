@@ -3,11 +3,23 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 5000;
+var fs = require('fs')
+
+
+const path = require('path')
+
+app.use( express.static( `${__dirname}/../build` ) );
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const apiKey = 'RGAPI-638f24e6-d6a2-4687-96fe-d8ec082e0517';
+const apiKey = fs.readFileSync("./API_KEY.txt").toString('utf-8')
+if(!apiKey){
+  console.log('------ERROR------');
+  console.log('No API KEY located in API_KEY.txt');
+}
 
 var SummonerName;
 var SummonerId;

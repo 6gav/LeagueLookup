@@ -117,7 +117,7 @@ class Profile extends Component {
                 <p id = "playerLp">{this.state.SoloLp}</p>
               </div>
             </div>
-            <div className = "Matches">
+            <div className = "Matches" id = 'matches-info'>
               <div>
                 <FillLiveGame LiveGame = {this.state.LiveGame}/>
               </div>
@@ -200,7 +200,6 @@ function FillLiveGame(props){
     return elements;
   }
   else {
-
     return(
       <p>Not ingame.</p>
     );
