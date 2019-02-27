@@ -1,3 +1,6 @@
+# Notes
+### This website is being rebuilt in cleaner code with Heroku deployment as a goal. Currently this app can be found at https://github.com/6gav/HerokuLeagueApp
+
 # Preview
 ### Main Screen
 ![Search Screenshot](https://i.imgur.com/lPHLWoX.png)
